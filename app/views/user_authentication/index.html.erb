@@ -20,12 +20,17 @@
           Private?
         </th>
 
+        <% if @current_user != nil %>
         <th>
           Follow to be edited
         </th>
+        <% else %>
+        <th>
+        </th>
+        <% end %>
 
         <th>
-          Details
+          
         </th>
 
       </tr>
@@ -45,9 +50,14 @@
           <% end %>
         </td>
 
+        <% if @current_user != nil %>
         <td>
-          to be edited
+          Follow or request sent
         </td>
+        <% else %>
+        <td>
+        </td>
+        <% end %>
 
         <td>
           <a href="/users/<%= a_user.id %>">
