@@ -10,4 +10,13 @@
 #  photo_id     :integer
 #
 class Comment < ApplicationRecord
+  # from ideas first draft - additional validations
+  validates(:photo_id, { :presence => true })
+  validates(:commenter_id, { :presence => true })
+  validates(:body, { :presence => true })
+
+  # from ideas first draft - direct associations
+  belongs_to(:commenter, { :class_name => "User", :counter_cache => true })
+  belongs_to(:photo, { :counter_cache => true })
+  
 end
