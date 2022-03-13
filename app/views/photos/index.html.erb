@@ -10,29 +10,19 @@
 
 <div>
   <div>
-    <form action="/insert_photo" method="post">
-      
-      <div>
-        <label for="image_box">
-          Image Choose file button
+    <form action="/insert_photo" method="post" enctype="multipart/form-data" class="form-horizontal">
+
+        <label for="image">
+          Image
         </label>
 
-        <input type="text" id="image_box" name="query_image">
-      </div>
-      
-      <div>
+        <input type="file" id="image" name="image" class="form-control">      
+
         <label for="caption_box">
           Caption
         </label>
 
         <textarea id="caption_box" name="query_caption" rows="2" placeholder="Enter a caption for the photo..."></textarea>
-      </div>
-
-      <div>
-        <label for="owner_id_box"> </label>
-
-        <input type="hidden" id="owner_id_box" name="query_owner_id">
-      </div>
 
       <button>
         Add photo
@@ -74,7 +64,7 @@
       <tr>
 
         <td>
-          <img src="<%= a_photo.image %>">
+          <img src="<%= a_photo.image %>" class="img-responsive">
         </td>
 
         <td>
