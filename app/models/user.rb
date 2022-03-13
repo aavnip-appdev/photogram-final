@@ -38,4 +38,31 @@ class User < ApplicationRecord
   has_many(:liked_photos, { :through => :likes, :source => :photo })
   has_many(:feed, { :through => :following, :source => :own_photos })
   has_many(:activity, { :through => :following, :source => :liked_photos })
+
+  def request_pending
+    user_id = self.id
+    pending_requests = FollowRequest.where(:sender_id => user_id).where(:status => "pending")
+
+    pending_ids = Array.new
+
+    pending_requests.each do |pending|
+    pending_ids.push(pending.recipient_id)
+    end
+
+    return pending_ids 
+  end
+
+  def pending_request
+    user_id = self.id
+    pending_requests = FollowRequest.where(:recipient_id => user_id).where(:status => "pending")
+
+    pending_request_ids = Array.new
+
+    pending_requests.each do |pending|
+    pending_request_ids.push(pending.sender_id)
+    end
+
+    return pending_request_ids 
+  end
+
 end

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   # Homepage Route
 
-  get("/", { :controller => "user_authentication", :action => "index" })
+  get("/", { :controller => "users", :action => "index" })
 
   #------------------------------
 
@@ -110,9 +110,9 @@ Rails.application.routes.draw do
   #------------------------------
   
   # READ for Users
-  get("/users", { :controller => "user_authentication", :action => "index" })
+  get("/users", { :controller => "users", :action => "index" })
     
-  get("/users/:path_id", { :controller => "user_authentication", :action => "show" })
+  get("/users/:the_username", { :controller => "users", :action => "show" })
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

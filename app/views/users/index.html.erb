@@ -52,7 +52,11 @@
 
         <% if @current_user != nil %>
         <td>
-          Follow or request sent
+          <% if @current_user.following.include?(a_user.id) %>
+            Unfollow
+          <% else %>
+            Follow
+          <% end %>
         </td>
         <% else %>
         <td>
@@ -60,7 +64,7 @@
         <% end %>
 
         <td>
-          <a href="/users/<%= a_user.id %>">
+          <a href="/users/<%= a_user.username %>">
             Show details
           </a>
         </td>
