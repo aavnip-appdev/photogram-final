@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  
+  # Homepage Route
+
+  get("/", { :controller => "user_authentication", :action => "index" })
+
+  #------------------------------
+
   # Routes for the Comment resource:
 
   # CREATE
@@ -101,6 +108,11 @@ Rails.application.routes.draw do
   get("/user_sign_out", { :controller => "user_authentication", :action => "destroy_cookies" })
              
   #------------------------------
+  
+  # READ for Users
+  get("/users", { :controller => "user_authentication", :action => "index" })
+    
+  get("/users/:path_id", { :controller => "user_authentication", :action => "show" })
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
