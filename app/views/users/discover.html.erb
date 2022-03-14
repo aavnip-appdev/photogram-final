@@ -1,0 +1,119 @@
+    <h1>
+      <%= @the_user.username %>
+    </h1>
+
+    <dl>
+      <dt>
+        Private
+      </dt>
+      <dd>
+        <%= @the_user.private %>
+      </dd>
+
+      <dt>
+        Followers
+      </dt>
+      <dd>
+        <%= @the_user.followers.count %>
+      </dd>
+      <dd>
+        <a href="">Unfollow</a>
+      </dd>
+
+      <dt>
+        Following
+      </dt>
+      <dd>
+        <%= @the_user.following.count %>
+      </dd>
+
+    </dl>
+
+    <div>
+      <ul>
+        <li>
+          <a href="/users/<%= @the_user.username %>">Profile</a>
+        </li>
+        
+        <li>
+          <a href="/users/<%= @the_user.username %>/liked_photos">Liked photos</a>
+        </li>
+
+        <li>
+          <a href="/users/<%= @the_user.username %>/feed">Feed</a>
+        </li>
+
+        <li>
+          <a href="/users/<%= @the_user.username %>/discover">Discover</a>
+        </li>
+      </ul>
+    </div>
+
+<h2> 
+  Discover
+    (
+    <% @the_user_following.each do |a_following| %>
+    <% a_user_following = User.where(:id=> a_following).at(0) %>
+    <%=a_user_following.liked_photos.count%>
+    <% end %>
+    )
+</h2>
+
+<table border="1">
+  <tr>
+    <th>
+      Image
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+    <th>
+      Caption
+    </th>
+
+    <th>
+      Posted
+    </th>
+
+    <th>
+      Likes
+    </th>
+
+    <th></th>
+  </tr>
+
+  <% @the_user_following.each do |a_following| %>
+  <% a_user_following = User.where(:id=> a_following).at(0) %>
+  <% a_user_following.liked_photos.each do |a_following_photo| %>
+  <tr>
+    <td>
+      <img src="<%= a_following_photo.image %>">
+    </td>
+
+    <td>
+      <%= a_following_photo.owner.username %>
+    </td>
+
+    <td>
+      <%= a_following_photo.caption %>
+    </td>
+
+    <td>
+      <%= time_ago_in_words(a_following_photo.created_at) %>
+    </td>
+
+    <td>
+      <%= a_following_photo.likes_count %>
+    </td>
+
+    <td>
+      <a href="/photos/<%= a_following_photo.id %>">
+        Show details
+      </a>
+    </td>
+  </tr>
+  <% end %>
+  <% end %>
+</table>

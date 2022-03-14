@@ -42,4 +42,16 @@ def feed
   render({ :template => "users/feed.html.erb" })
 end
 
+def discover
+  the_username = params.fetch("the_username")
+
+  matching_users = User.where({ :username => the_username })
+
+  @the_user = matching_users.at(0)
+
+  @the_user_following = @the_user.following
+
+  render({ :template => "users/discover.html.erb" })
+end
+
 end

@@ -119,5 +119,7 @@ Rails.application.routes.draw do
 
   get("/users/:the_username/feed", { :controller=> "users", :action=> "feed" })
 
+  get("/users/:the_username/discover", { :controller=> "users", :action=> "discover" })
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
