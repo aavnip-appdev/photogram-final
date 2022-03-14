@@ -18,16 +18,36 @@ class FollowRequestsController < ApplicationController
   end
 
   def create
-    the_follow_request = FollowRequest.new
-    the_follow_request.sender_id = params.fetch("query_sender_id")
-    the_follow_request.recipient_id = params.fetch("query_recipient_id")
-    the_follow_request.status = params.fetch("query_status")
+    the_id = params.fetch("query_recipient_id")
+    recipient = User.where({ :id => the_id })
+    @the_recipient = recipient.at(0)
+    @the_recipient_followers = @the_recipient.followers
 
-    if the_follow_request.valid?
-      the_follow_request.save
-      redirect_to("/follow_requests", { :notice => "Follow request created successfully." })
+    if @the_recipient.private == true
+
+      the_follow_request = FollowRequest.new
+      the_follow_request.sender_id = @current_user.id
+      the_follow_request.recipient_id = @the_recipient.id
+      the_follow_request.status = "pending"
+
+        if the_follow_request.valid?
+          the_follow_request.save
+          redirect_to("/follow_requests", { :notice => "Follow request sent." })
+        else
+          redirect_to("/follow_requests", { :notice => "Error. Follow request failed to create successfully." })
+        end
     else
-      redirect_to("/follow_requests", { :notice => "Follow request failed to create successfully." })
+      the_follow_request = FollowRequest.new
+      the_follow_request.sender_id = @current_user.id
+      the_follow_request.recipient_id = @the_recipient.id
+      the_follow_request.status = "accepted"
+
+        if the_follow_request.valid?
+          the_follow_request.save
+          redirect_to("/users/#{@the_recipient.username}", { :notice => "Follow request created successfully." })
+        else
+          redirect_to("/follow_requests", { :notice => "Error. Follow request failed to create successfully." })
+        end
     end
   end
 
