@@ -67,9 +67,37 @@ class FollowRequestsController < ApplicationController
     end
   end
 
+  def accept_follow_request
+    the_id = params.fetch("path_id")
+    the_follow_request = FollowRequest.where({:sender_id => the_id }).where({:recipient_id => @current_user.id}).at(0)
+
+    the_follow_request.sender_id = the_id
+    the_follow_request.recipient_id = @current_user.id
+    the_follow_request.status = "accepted"
+
+    if the_follow_request.valid?
+      the_follow_request.save
+      redirect_to("/users/#{@current_user.username}", { :notice => "Accepted follow request."})
+    else
+      redirect_to("/users/#{@current_user.username}", { :alert => "Follow request failed to update successfully." })
+    end
+  end
+
+  def reject_follow_request
+    the_id = params.fetch("path_id")
+    the_follow_request = FollowRequest.where({:sender_id => the_id }).where({:recipient_id => @current_user.id}).at(0)
+
+    the_follow_request.sender_id = the_id
+    the_follow_request.recipient_id = @current_user.id
+    the_follow_request.status = "rejected"
+
+    redirect_to("/users/#{@current_user.username}", { :alert => "Rejected follow request." })
+    end
+  end
+
   def destroy
     the_id = params.fetch("path_id")
-    the_follow_request = FollowRequest.where({ :id => the_id }).at(0)
+    the_follow_request = FollowRequest.where({ :recipient_id => the_id }).where({:sender_id => @current_user.id}).at(0)
 
     the_follow_request.destroy
 
