@@ -8,15 +8,16 @@
 
 <hr>
 
+<% if @current_user != nil %>
 <div>
   <div>
     <form action="/insert_photo" method="post" enctype="multipart/form-data" class="form-horizontal">
 
-        <label for="image">
+        <label for="image_box">
           Image
         </label>
 
-        <input type="file" id="image" name="image" class="form-control">      
+        <input type="file" id="image_box" name="image" class="form-control">      
 
         <label for="caption_box">
           Caption
@@ -30,6 +31,7 @@
     </form>
   </div>
 </div>
+<% end %>
 
 <hr>
 <div>

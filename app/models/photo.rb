@@ -27,5 +27,7 @@ class Photo < ApplicationRecord
   has_many(:fan_followers, { :through => :fans, :source => :following })
 
   # adding image uploader 
-  mount_uploader :image, ImageUploader
+    # mount_uploader :image, ImageUploader
+  # removed because it's causing image links to break 
+
 end
