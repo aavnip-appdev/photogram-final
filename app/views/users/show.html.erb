@@ -27,6 +27,24 @@
         <%= @the_user.following.count %>
       </dd>
 
+      <dt>
+      Edit user
+      </dt>
+      <dd>
+        <form action="/modify_user/<%= @the_user.username %>" method="post">
+          <label for="browser_username">Username</label>
+          <input id="browser_username" type="text" name="query_username" placeholder="Enter a username..."
+            value="<%= @the_user.username %>">
+
+          <label for="browser_private">Private?</label>
+          <input id="browser_private" type="checkbox" name="query_private" >
+
+          <button>Update user</button>
+        </form>
+      </dd>
+
+
+
     </dl>
 
     <div>
@@ -49,5 +67,5 @@
       </ul>
     </div>
 
-    
+
 

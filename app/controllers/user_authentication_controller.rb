@@ -64,7 +64,7 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/edit_profile.html.erb" })
   end
 
-  def update
+  def update_from_form
     @user = @current_user
     @user.email = params.fetch("query_email")
     @user.password = params.fetch("query_password")
@@ -73,9 +73,31 @@ class UserAuthenticationController < ApplicationController
     @user.private = params.fetch("query_private", false)
     @user.likes_count = params.fetch("query_likes_count")
     @user.comments_count = params.fetch("query_comments_count")
-    @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
-    @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
-    @user.own_photos_count = params.fetch("query_own_photos_count")
+    # @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
+    # @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
+    # @user.own_photos_count = params.fetch("query_own_photos_count")
+    
+    if @user.valid?
+      @user.save
+
+      redirect_to("/", { :notice => "User account updated successfully."})
+    else
+      render({ :template => "user_authentication/edit_profile_with_errors.html.erb" , :alert => @user.errors.full_messages.to_sentence })
+    end
+  end
+
+  def update_from_details
+    @user = @current_user
+    # @user.email = params.fetch("query_email")
+    # @user.password = params.fetch("query_password")
+    # @user.password_confirmation = params.fetch("query_password_confirmation")
+    @user.username = params.fetch("the_username")
+    @user.private = params.fetch("query_private", false)
+    # @user.likes_count = params.fetch("query_likes_count")
+    # @user.comments_count = params.fetch("query_comments_count")
+    # @user.sent_follow_requests_count = params.fetch("query_sent_follow_requests_count")
+    # @user.received_follow_requests_count = params.fetch("query_received_follow_requests_count")
+    # @user.own_photos_count = params.fetch("query_own_photos_count")
     
     if @user.valid?
       @user.save
