@@ -52,10 +52,19 @@
 
         <% if @current_user != nil %>
         <td>
-          <% if @current_user.following.include?(a_user.id) %>
+          <% if @current_user.following.include?("a_user") == true %>
             Unfollow
+          <%# elsif @current_user.sender_follow_requests_pending.include?("a_user")%>
+            Request sent. Cancel
+          <%# elsif @current_user.sender_follow_requests_rejected.include?("a_user") %>
+            Follow rejected
           <% else %>
-            Follow
+            <form action="/insert_follow_request" method="post">
+              <input type="hidden" name="query_sender_id" value="<%= @current_user.id %>">
+              <input type="hidden" name="query_recipient_id" value="<%= a_user.id %>">
+              <input type="hidden" name="query_status" value="accepted">
+              <button>Follow</button>
+            </form>
           <% end %>
         </td>
         <% else %>

@@ -39,7 +39,22 @@ class User < ApplicationRecord
   has_many(:feed, { :through => :following, :source => :own_photos })
   has_many(:activity, { :through => :following, :source => :liked_photos })
 
-  def request_pending
+ 
+  def sender_follow_requests_accepted
+    user_id = self.id
+    accepted_requests = FollowRequest.where(:sender_id => user_id).where(:status => "accepted")
+
+    accepted_ids = Array.new
+
+    accepted_requests.each do |accepted|
+    accepted_ids.push(accepted.recipient_id)
+    end
+
+    return accepted_ids 
+
+  end
+  
+  def sender_follow_requests_pending
     user_id = self.id
     pending_requests = FollowRequest.where(:sender_id => user_id).where(:status => "pending")
 
@@ -50,6 +65,19 @@ class User < ApplicationRecord
     end
 
     return pending_ids 
+  end
+
+  def sender_follow_requests_rejected
+    user_id = self.id
+    rejected_requests = FollowRequest.where(:sender_id => user_id).where(:status => "rejected")
+
+    rejected_ids = Array.new
+
+    rejected_requests.each do |rejected|
+    rejected_ids.push(rejected.recipient_id)
+    end
+
+    return rejected_ids 
   end
 
   def pending_request
