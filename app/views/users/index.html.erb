@@ -53,7 +53,9 @@
         <% if @current_user != nil %>
         <td>
           <% if @current_user.sender_follow_requests_accepted.include?(a_user.id) %>
-            Unfollow
+              <a href="">
+                Unfollow
+              </a>
           <% elsif @current_user.sender_follow_requests_pending.include?(a_user.id)%>
             Request sent. Cancel
           <% elsif @current_user.sender_follow_requests_rejected.include?(a_user.id) %>
