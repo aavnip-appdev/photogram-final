@@ -52,11 +52,11 @@
 
         <% if @current_user != nil %>
         <td>
-          <% if @current_user.following.include?("a_user") == true %>
+          <% if @current_user.sender_follow_requests_accepted.include?(a_user.id) %>
             Unfollow
-          <%# elsif @current_user.sender_follow_requests_pending.include?("a_user")%>
+          <% elsif @current_user.sender_follow_requests_pending.include?(a_user.id)%>
             Request sent. Cancel
-          <%# elsif @current_user.sender_follow_requests_rejected.include?("a_user") %>
+          <% elsif @current_user.sender_follow_requests_rejected.include?(a_user.id) %>
             Follow rejected
           <% else %>
             <form action="/insert_follow_request" method="post">
