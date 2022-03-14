@@ -117,5 +117,7 @@ Rails.application.routes.draw do
 
   get("/users/:the_username/liked_photos", { :controller=> "users", :action=> "liked_photos" })
 
+  get("/users/:the_username/feed", { :controller=> "users", :action=> "feed" })
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

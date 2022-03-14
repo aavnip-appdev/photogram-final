@@ -30,4 +30,16 @@ def liked_photos
   render({ :template => "users/liked_photos.html.erb" })
 end
 
+def feed
+  the_username = params.fetch("the_username")
+
+  matching_users = User.where({ :username => the_username })
+
+  @the_user = matching_users.at(0)
+
+  @the_user_feed = @the_user.feed
+
+  render({ :template => "users/feed.html.erb" })
+end
+
 end
