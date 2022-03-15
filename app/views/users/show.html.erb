@@ -18,26 +18,57 @@
       </dd>
 
       <dd>
-      <% if @current_user.sender_follow_requests_accepted.include?(@the_user.id) %>
-              <a href="/delete_follow_request/<%= @the_user.id %>">
-                Unfollow
-              </a>
-      <% elsif @current_user.sender_follow_requests_pending.include?(@the_user.id)%>
-            Request sent.  <a href="/delete_follow_request/<%= @the_user.id %>">Cancel</a>
+      <% if @current_user == @the_user %>
+      <dd></dd>
+      <dd>
+        <h4>Pending follow requests</h4>
+        
+        <ul>
+          <% @current_user.sender_follow_requests_pending.each do |a_pending_request| %>
+            <li>
+              <%= FollowRequest.where({ :recipient_id => a_pending_request}).at(0).recipient.username %>
+
+              <form action="/modify_follow_request/2355" method="post">
+                <input name="query_status" value="accepted" type="hidden">
+
+                <button>
+                  Accept
+                </button>
+              </form>
+
+              <form action="/modify_follow_request/2355" method="post">
+                <input name="query_status" value="rejected" type="hidden">
+              
+                <button>
+                  Reject
+                </button>
+              </form>
+            </li>
+          <% end %>
+          </ul>
+      </dd>
       <% else %>
-            <form action="/insert_follow_request" method="post">
-              <input type="hidden" name="query_sender_id" value="<%= @current_user.id %>">
-              <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
-              <input type="hidden" name="query_status" 
-                value=
-                  <% if @the_user.private == true  %>
-                    "accepted"
-                  <% else %>
-                    "pending"
-                  <% end %>
-                >
-              <button>Follow</button>
-            </form>
+        <% if @current_user.sender_follow_requests_accepted.include?(@the_user.id) %>
+                <a href="/delete_follow_request/<%= @the_user.id %>">
+                  Unfollow
+                </a>
+        <% elsif @current_user.sender_follow_requests_pending.include?(@the_user.id)%>
+              Request sent.  <a href="/delete_follow_request/<%= @the_user.id %>">Cancel</a>
+        <% else %>
+              <form action="/insert_follow_request" method="post">
+                <input type="hidden" name="query_sender_id" value="<%= @current_user.id %>">
+                <input type="hidden" name="query_recipient_id" value="<%= @the_user.id %>">
+                <input type="hidden" name="query_status" 
+                  value=
+                    <% if @the_user.private == true  %>
+                      "accepted"
+                    <% else %>
+                      "pending"
+                    <% end %>
+                  >
+                <button>Follow</button>
+              </form>
+        <% end %>
       <% end %>
       </dd>
     
@@ -59,7 +90,13 @@
             value="<%= @the_user.username %>">
 
           <label for="browser_private">Private?</label>
-          <input id="browser_private" type="checkbox" name="query_private" >
+          <input id="browser_private" type="checkbox" name="query_private" 
+            <% if @the_user.private == true %>
+            checked
+            <% else %>
+
+            <% end %>
+            >
 
           <button>Update user</button>
         </form>
