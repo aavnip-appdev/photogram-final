@@ -80,17 +80,31 @@ class User < ApplicationRecord
     return rejected_ids 
   end
 
-  def pending_request
+  def recipient_follow_requests_accepted
+    user_id = self.id
+    pending_requests = FollowRequest.where(:recipient_id => user_id).where(:status => "accepted")
+
+    pending_requests_ids = Array.new
+
+    pending_requests.each do |pending|
+    pending_requests_ids.push(pending.sender_id)
+    end
+
+    return pending_requests_ids 
+  end
+
+  
+  def recipient_follow_requests_pending
     user_id = self.id
     pending_requests = FollowRequest.where(:recipient_id => user_id).where(:status => "pending")
 
-    pending_request_ids = Array.new
+    pending_requests_ids = Array.new
 
     pending_requests.each do |pending|
-    pending_request_ids.push(pending.sender_id)
+    pending_requests_ids.push(pending.sender_id)
     end
 
-    return pending_request_ids 
+    return pending_requests_ids 
   end
 
 end

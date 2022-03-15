@@ -38,6 +38,10 @@ Rails.application.routes.draw do
   # UPDATE
   
   post("/modify_follow_request/:path_id", { :controller => "follow_requests", :action => "update" })
+
+  post("/accept_follow_request/:path_id", { :controller => "follow_requests", :action => "accept_follow_request" })
+  post("/reject_follow_request/:path_id", { :controller => "follow_requests", :action => "reject_follow_request" })
+
   
   # DELETE
   get("/delete_follow_request/:path_id", { :controller => "follow_requests", :action => "destroy" })

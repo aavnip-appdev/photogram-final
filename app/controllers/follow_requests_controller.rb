@@ -90,6 +90,7 @@ class FollowRequestsController < ApplicationController
     the_follow_request.sender_id = the_id
     the_follow_request.recipient_id = @current_user.id
     the_follow_request.status = "rejected"
+    the_follow_request.destroy
 
     redirect_to("/users/#{@current_user.username}", { :alert => "Rejected follow request." })
     
