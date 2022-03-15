@@ -1,8 +1,11 @@
 class PhotosController < ApplicationController
   def index
-    matching_photos = Photo.all
-
-    @list_of_photos = matching_photos.order({ :created_at => :desc })
+    @list_of_non_private_users = User.where({:private => false})
+    
+    all_photos = Photo.all
+    all_non_private_photos = all_photos.where({ :owner_id => @list_of_non_private_users })
+    
+    @list_of_photos = all_non_private_photos.order({ :created_at => :desc })
 
     render({ :template => "photos/index.html.erb" })
   end
