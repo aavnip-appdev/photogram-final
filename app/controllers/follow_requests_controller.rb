@@ -92,7 +92,7 @@ class FollowRequestsController < ApplicationController
     the_follow_request.status = "rejected"
 
     redirect_to("/users/#{@current_user.username}", { :alert => "Rejected follow request." })
-    end
+    
   end
 
   def destroy
