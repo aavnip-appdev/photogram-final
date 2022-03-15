@@ -53,7 +53,7 @@
         <% if @current_user != nil %>
         <td>
           <% if @current_user.sender_follow_requests_accepted.include?(a_user.id) %>
-              <a href="">
+              <a href="/delete_follow_request/<%= a_user.id %>">
                 Unfollow
               </a>
           <% elsif @current_user.sender_follow_requests_pending.include?(a_user.id)%>
@@ -62,7 +62,14 @@
             <form action="/insert_follow_request" method="post">
               <input type="hidden" name="query_sender_id" value="<%= @current_user.id %>">
               <input type="hidden" name="query_recipient_id" value="<%= a_user.id %>">
-              <input type="hidden" name="query_status" value="accepted">
+              <input type="hidden" name="query_status" 
+                value=
+                  <% if a_user.private == true  %>
+                    "accepted"
+                  <% else %>
+                    "pending"
+                  <% end %>
+                >
               <button>Follow</button>
             </form>
           <% end %>
