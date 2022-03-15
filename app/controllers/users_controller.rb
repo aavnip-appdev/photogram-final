@@ -49,7 +49,7 @@ def discover
 
   @the_user = matching_users.at(0)
 
-  @the_user_following = @the_user.following
+  @the_user_following = @the_user.activity
 
   render({ :template => "users/discover.html.erb" })
 end

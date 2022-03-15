@@ -50,13 +50,14 @@
     </div>
 
 <h2> 
-  Discover
-    (
-    <% @the_user_following.each do |a_following| %>
-    <% a_user_following = User.where(:id=> a_following).at(0) %>
-    <%=a_user_following.liked_photos.count%>
-    <% end %>
-    )
+  Discover (<%= @the_user_following.count %>)
+
+    <%# old code using users then following then photos, but can skip and use indirect association for activity %>
+    <%# @the_user_following.each do |a_following| %>
+    <%# a_user_following = User.where(:id=> a_following).at(0) %>
+    <%#=a_user_following.liked_photos.count%>
+    <%# end %>
+    
 </h2>
 
 <table border="1">
@@ -84,9 +85,12 @@
     <th></th>
   </tr>
 
-  <% @the_user_following.each do |a_following| %>
-  <% a_user_following = User.where(:id=> a_following).at(0) %>
-  <% a_user_following.liked_photos.each do |a_following_photo| %>
+  <% @the_user_following.each do |a_following_photo| %>
+
+  <%# old code using users then following then photos, but can skip and use indirect association for activity %>
+  <%# a_user_following = User.where(:id=> a_following).at(0) %>
+  <%# a_user_following.liked_photos.each do |a_following_photo| %>
+
   <tr>
     <td>
       <img src="<%= a_following_photo.image %>" class="img-responsive">
@@ -115,5 +119,5 @@
     </td>
   </tr>
   <% end %>
-  <% end %>
+  <%# end %>
 </table>
