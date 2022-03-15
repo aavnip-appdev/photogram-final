@@ -19,7 +19,7 @@
       <dd>
         <a href="">Unfollow</a>
       </dd>
-
+    
       <dt>
         Following
       </dt>
@@ -27,6 +27,7 @@
         <%= @the_user.following.count %>
       </dd>
 
+    <% if @current_user == @the_user %>
       <dt>
       Edit user
       </dt>
@@ -42,8 +43,8 @@
           <button>Update user</button>
         </form>
       </dd>
-
-
+    <% else %>
+    <% end %>
 
     </dl>
 
