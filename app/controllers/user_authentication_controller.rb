@@ -6,6 +6,10 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/sign_in.html.erb" })
   end
 
+  def force_sign_in_form
+    redirect_to("/user_sign_in", { :notice => "You have to sign in first." })
+  end
+
   def create_cookie
     user = User.where({ :email => params.fetch("query_email") }).first
     

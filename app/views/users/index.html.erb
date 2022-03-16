@@ -80,7 +80,8 @@
         <% end %>
 
         <td>
-          <% if a_user.private == true && @current_user.sender_follow_requests_accepted.exclude?(a_user.id)%>
+        <% if @current_user != nil %>
+          <% if a_user.private == true && @current_user.sender_follow_requests_accepted.exclude?(a_user.id) && @current_user.id != a_user.id %>
             <a href="/users/not_authorized/<%= a_user.username %>">
               Show details
             </a>
@@ -89,6 +90,11 @@
               Show details
             </a>
           <% end %>
+        <% else %>
+          <a href="/user_force_sign_in">
+              Show details
+            </a>
+        <% end %>
         </td>
       </tr>
       <% end %>
