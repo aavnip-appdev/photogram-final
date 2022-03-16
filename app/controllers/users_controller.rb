@@ -27,7 +27,11 @@ def liked_photos
 
   @the_user = matching_users.at(0)
 
-  render({ :template => "users/liked_photos.html.erb" })
+  if @current_user != nil
+    render({ :template => "users/liked_photos.html.erb" })
+  else
+    redirect_to("/user_sign_in", { :notice => "You have to sign in first." })
+  end
 end
 
 def feed
@@ -39,7 +43,12 @@ def feed
 
   @the_user_feed = @the_user.feed
 
-  render({ :template => "users/feed.html.erb" })
+  if @current_user != nil
+    render({ :template => "users/feed.html.erb" })
+  else
+    redirect_to("/user_sign_in", { :notice => "You have to sign in first." })
+  end
+  
 end
 
 def discover
@@ -51,7 +60,11 @@ def discover
 
   @the_user_following = @the_user.activity
 
-  render({ :template => "users/discover.html.erb" })
+  if @current_user != nil
+    render({ :template => "users/discover.html.erb" })
+  else
+    redirect_to("/user_sign_in", { :notice => "You have to sign in first." })
+  end
 end
 
 def not_authorized
