@@ -80,9 +80,15 @@
         <% end %>
 
         <td>
-          <a href="/users/<%= a_user.username %>">
-            Show details
-          </a>
+          <% if a_user.private == true && @current_user.sender_follow_requests_accepted.exclude?(a_user.id)%>
+            <a href="/users/not_authorized/<%= a_user.username %>">
+              Show details
+            </a>
+          <% else %>
+            <a href="/users/<%= a_user.username %>">
+              Show details
+            </a>
+          <% end %>
         </td>
       </tr>
       <% end %>

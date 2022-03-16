@@ -116,6 +116,8 @@ Rails.application.routes.draw do
   
   # READ for Users
   get("/users", { :controller => "users", :action => "index" })
+  
+  get("/users/not_authorized/:the_username", { :controller => "users", :action => "not_authorized" })
     
   get("/users/:the_username", { :controller => "users", :action => "show" })
 

@@ -54,4 +54,11 @@ def discover
   render({ :template => "users/discover.html.erb" })
 end
 
+def not_authorized
+  the_username = params.fetch("the_username")
+  matching_users = User.where({ :username => the_username })
+  @the_user = matching_users.at(0)
+  redirect_to("/", {:notice => "You are not authorized for that." })
+end
+ 
 end
