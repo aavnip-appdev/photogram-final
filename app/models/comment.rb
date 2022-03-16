@@ -12,7 +12,7 @@
 class Comment < ApplicationRecord
   # from ideas first draft - additional validations
   validates(:photo_id, { :presence => true })
-  validates(:body, { :presence => true })
+  # validates(:body, { :presence => true })
   validates(:author_id, { :presence => true })
 
   # from ideas first draft - direct associations
