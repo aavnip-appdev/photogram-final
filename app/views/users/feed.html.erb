@@ -49,7 +49,8 @@
       </ul>
     </div>
 
-<h2> Feed (<%= @the_user_feed.count %>)</h2>
+
+<h2> Feed (Feed Photo Count TBD)</h2>
 
 <table border="1">
   <tr>
@@ -76,8 +77,11 @@
     <th></th>
   </tr>
 
-  <% @the_user_feed.each do |a_feed_photo| %>
-
+  <% @the_user_following.each do |a_following| %>
+    <% user = User.where({:id => a_following}).at(0) %>
+  
+    <% user.own_photos.each do |a_feed_photo| %>
+  
   <tr>
     <td>
       <img src="<%= a_feed_photo.image %>" class="img-responsive">
@@ -104,7 +108,9 @@
         Show details
       </a>
     </td>
+
   </tr>
+    <% end %>
   <% end %>
 
 </table>

@@ -39,7 +39,7 @@ class User < ApplicationRecord
   has_many(:feed, { :through => :following, :source => :own_photos })
   has_many(:activity, { :through => :following, :source => :liked_photos })
 
- 
+  
   def sender_follow_requests_accepted
     user_id = self.id
     accepted_requests = FollowRequest.where(:sender_id => user_id).where(:status => "accepted")
@@ -106,5 +106,6 @@ class User < ApplicationRecord
 
     return pending_requests_ids 
   end
+
 
 end

@@ -36,12 +36,14 @@ end
 
 def feed
   the_username = params.fetch("the_username")
-
   matching_users = User.where({ :username => the_username })
-
   @the_user = matching_users.at(0)
 
-  @the_user_feed = @the_user.feed
+  @the_user_following = @the_user.sender_follow_requests_accepted
+
+  #@the_user.sender_follow_requests_accepted.each do |a_accepted_following| 
+    #@the_user_feed = User.where({:id => a_accepted_following}).at(0)
+  #end
 
   if @current_user != nil
     render({ :template => "users/feed.html.erb" })
