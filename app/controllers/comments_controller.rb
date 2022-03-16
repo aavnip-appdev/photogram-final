@@ -25,9 +25,9 @@ class CommentsController < ApplicationController
 
     if the_comment.valid?
       the_comment.save
-      redirect_to("/comments", { :notice => "Comment created successfully." })
+      redirect_to("/photos/#{the_comment.photo_id}", { :notice => "Comment created successfully." })
     else
-      redirect_to("/comments", { :notice => "Comment failed to create successfully." })
+      redirect_to("/photos/#{the_comment.photo_id}", { :notice => "Comment failed to create successfully." })
     end
   end
 
